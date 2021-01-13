@@ -5,6 +5,13 @@
 # Usage: service-deploy.sh {Tag name} {registry URL} {ECS cluster name} {AWS access key ID} {AWS access key secret}
 ##
 
+TAG=$(echo $1 | tr '/' '-')
+REGISTRY=$2
+SERVICE_NAME=$3
+CLUSTER_NAME=$4
+export AWS_ACCESS_KEY_ID=$5
+export AWS_SECRET_ACCESS_KEY=$6
+
 while [[ $# -gt 0 ]]
 do
 		key="$1"
@@ -50,12 +57,6 @@ do
 		shift # past argument or value
 done
 
-TAG=$(echo $1 | tr '/' '-')
-REGISTRY=$2
-SERVICE_NAME=$3
-CLUSTER_NAME=$4
-export AWS_ACCESS_KEY_ID=$5
-export AWS_SECRET_ACCESS_KEY=$6
 
 eval $(aws ecr get-login --region $AWS_REGION --no-include-email) #needs AWS_REGION AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
 
