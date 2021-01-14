@@ -79,7 +79,7 @@ docker push $REGISTRY:travis-$TRAVIS_BUILD_NUMBER
 
 if [ -n "$ADDITIONAL_TAG" ]; then 
 	docker tag $IMAGE_NAME:$COMMIT $REGISTRY:$ADDITIONAL_TAG
-	docker push $REGISTRY:ADDITIONAL_TAG
+	docker push $REGISTRY:$ADDITIONAL_TAG
 fi
 
 curl https://raw.githubusercontent.com/AttestationLegale/ecs-deploy/master/ecs-deploy > ecs-deploy
