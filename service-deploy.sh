@@ -62,7 +62,7 @@ eval $(aws ecr get-login --region $AWS_REGION --no-include-email) #needs AWS_REG
 
 docker tag $IMAGE_NAME:$COMMIT $REGISTRY:$TAG
 # "latest" tag is only needed for dev or master
-if [[ "$TRAVIS_BRANCH" == "stg" || "$TRAVIS_BRANCH" =~ release\/.+ ]]; then
+if [[ "$TRAVIS_BRANCH" == "stg" || "$TRAVIS_BRANCH" == "staging" || "$TRAVIS_BRANCH" =~ release\/.+ ]]; then
   docker tag $IMAGE_NAME:$COMMIT $REGISTRY:RC
 else
   docker tag $IMAGE_NAME:$COMMIT $REGISTRY:latest
@@ -70,7 +70,7 @@ fi
 docker tag $IMAGE_NAME:$COMMIT $REGISTRY:travis-$TRAVIS_BUILD_NUMBER
 docker push $REGISTRY:$TAG
 # "latest" tag is only needed for dev or master
-if [[ "$TRAVIS_BRANCH" == "stg" || "$TRAVIS_BRANCH" =~ release\/.+ ]]; then
+if [[ "$TRAVIS_BRANCH" == "stg" || "$TRAVIS_BRANCH" == "staging" || "$TRAVIS_BRANCH" =~ release\/.+ ]]; then
   docker push $REGISTRY:RC
 else
   docker push $REGISTRY:latest
